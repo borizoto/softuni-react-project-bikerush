@@ -1,30 +1,16 @@
 import { useState } from "react";
 
+import { brandOptions, modelOptions } from "../../data/bikeData.js";
+import { create } from "../../services/listingsService.js";
+import { useNavigate } from "react-router";
+
 export default function CreateListingForm() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         brand: "",
         model: "",
     });
-
-    const brandOptions = [
-        "Orbea",
-        "Radon",
-        "YT",
-        "Scott",
-        "Canyon",
-        "Trek",
-        "Cube",
-    ];
-
-    const modelOptions = {
-        Orbea: ["Onna", "Alma", "Oiz", "Laufey", "Occam", "Rallon"],
-        Radon: ["Swoop", "Cragger", "Jelaous"],
-        YT: ["Izzo", "Jeffsy", "Capra"],
-        Scott: ["Spark", "Gambler"],
-        Canyon: ["Stoic", "Spectral", "Neuron"],
-        Trek: ["Roscoe", "Marlin"],
-        Cube: ["Reaction", "One77"],
-    };
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -36,17 +22,17 @@ export default function CreateListingForm() {
         }));
     };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData)
-        console.log('created offer')
-        console.log(data)
+    const createListingAction = async (formData) => {
+        const bikeData = Object.fromEntries(formData);
+
+        await create(bikeData);
+
+        navigate('/listings');
     }
 
     return (
         <section id="create-page">
-            <form id="create" onSubmit={submitHandler}>
+            <form id="create" action={createListingAction}>
                 <div className="container">
                     <h1>Create Bike Listing</h1>
 
@@ -106,11 +92,11 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose a category
                         </option>
-                        <option value="mtb" >MTB</option>
-                        <option value="trekking">Trekking</option>
-                        <option value="ebike">E-Bike</option>
-                        <option value="roadbike">Roadbike</option>
-                        <option value="gravel">Gravel</option>
+                        <option value="Mountain Bike" >MTB</option>
+                        <option value="Trekking">Trekking</option>
+                        <option value="E-Bike">E-Bike</option>
+                        <option value="Roadbike">Roadbike</option>
+                        <option value="Gravel">Gravel</option>
                     </select>
 
                     {/* Bike type */}
@@ -119,9 +105,9 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose a type
                         </option>
-                        <option value="fully">Full suspension</option>
-                        <option value="hardtail">Hardtail</option>
-                        <option value="rigid">Rigid</option>
+                        <option value="Full-Suspension">Full-Suspension</option>
+                        <option value="Hardtail">Hardtail</option>
+                        <option value="Rigid">Rigid</option>
                     </select>
 
                     {/* Frame size */}
@@ -130,11 +116,11 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose frame size
                         </option>
-                        <option value="xs">XS</option>
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
                     </select>
 
                     {/* Frame material */}
@@ -143,10 +129,10 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose frame material
                         </option>
-                        <option value="aluminium">Aluminium</option>
-                        <option value="titanium">Titanium</option>
-                        <option value="carbon">Carbon</option>
-                        <option value="steel">Steel</option>
+                        <option value="Aluminium">Aluminium</option>
+                        <option value="Titanium">Titanium</option>
+                        <option value="Carbon">Carbon</option>
+                        <option value="Steel">Steel</option>
                     </select>
 
                     {/* Wheel size */}
@@ -160,7 +146,7 @@ export default function CreateListingForm() {
                         <option value="26">26</option>
                         <option value="27.5">27.5</option>
                         <option value="29">29</option>
-                        <option value="mullet">Mullet</option>
+                        <option value="Mullet">Mullet</option>
                     </select>
 
                     {/* Condition */}
@@ -169,8 +155,8 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose bike condition
                         </option>
-                        <option value="used">Used</option>
-                        <option value="new">New</option>
+                        <option value="Used">Used</option>
+                        <option value="New">New</option>
                     </select>
 
                     {/* Location */}
@@ -179,12 +165,12 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose a city in which the bike is being sold
                         </option>
-                        <option value="sofia">Sofia</option>
-                        <option value="pleven">Pleven</option>
-                        <option value="plovdiv">Plovdiv</option>
-                        <option value="varna">Varna</option>
-                        <option value="burgas">Burgas</option>
-                        <option value="blagoevgrad">Blagoevgrad</option>
+                        <option value="Sofia">Sofia</option>
+                        <option value="Pleven">Pleven</option>
+                        <option value="Plovdiv">Plovdiv</option>
+                        <option value="Varna">Varna</option>
+                        <option value="Burgas">Burgas</option>
+                        <option value="Blagoevgrad">Blagoevgrad</option>
                     </select>
 
                     {/* Price */}
@@ -203,9 +189,9 @@ export default function CreateListingForm() {
                         <option value="" disabled hidden>
                             Choose currency
                         </option>
-                        <option value="bgn">лв.</option>
-                        <option value="eur">EUR</option>
-                        <option value="usd">USD</option>
+                        <option value="лв.">лв.</option>
+                        <option value="€">EUR</option>
+                        <option value="$">USD</option>
                     </select>
 
                     <label htmlFor="information">Additional information:</label>
