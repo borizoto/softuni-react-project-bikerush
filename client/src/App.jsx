@@ -1,9 +1,11 @@
 import bikeLogo from '/bikeIcon.png'
 
+import CreateListingForm from './components/CreateListingForm'
+
 function App() {
   return (
     <>
-      <h1>React Project BikeRush</h1>
+      <CreateListingForm/>
     </>
   )
 }
