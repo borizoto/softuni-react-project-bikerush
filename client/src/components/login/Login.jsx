@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Login() {
     return (
         <section id="login-page">
@@ -10,7 +12,7 @@ export default function Login() {
                 <button type="submit">Login</button>
             </form>
             <p>
-                Don't have an account? <a href="register.html">Register here</a>
+                Don't have an account? <Link to="/register">Register here</Link>
             </p>
         </section>
     );

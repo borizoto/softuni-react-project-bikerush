@@ -1,3 +1,5 @@
+import { Route, Routes } from 'react-router'
+
 import bikeLogo from '/bikeIcon.png'
 
 import CreateListingForm from './components/listings-create/CreateListingForm'
@@ -9,6 +11,7 @@ import Register from './components/register/Register'
 import EditListingForm from './components/listings-edit/EditListingForm'
 import ListingsDetails from './components/listings-details/ListingsDetails'
 import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
+import SearchListingForm from './components/listings-search/SearchListingForm'
 
 function App() {
   return (
@@ -18,19 +21,23 @@ function App() {
 
       {/* Main content */}
       <main id='main-content'>
-        <Home />
+        <Routes>
+          <Route path='/' element={<Home />} />
 
-        <ListingsCatalog />
+          <Route path='/listings' element={<ListingsCatalog />} />
 
-        <CreateListingForm />
+          <Route path='/listings/create' element={<CreateListingForm />} />
 
-        <EditListingForm />
+          <Route path='/search' element={<SearchListingForm />} />
 
-        <ListingsDetails />
+          <Route path='/#' element={<EditListingForm />} />
 
-        <Login />
+          <Route path='/#' element={<ListingsDetails />} />          
 
-        <Register />
+          <Route path='/login' element={<Login />} />
+
+          <Route path='/register' element={<Register />} />
+        </Routes>
       </main>
 
       <footer>

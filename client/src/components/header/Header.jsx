@@ -1,5 +1,4 @@
-
-// import { Link } from "react-router";
+import { Link } from "react-router";
 
 export default function Header() {
     return (
@@ -9,17 +8,17 @@ export default function Header() {
             </h1>
             
             <nav>
-                <a href="/">Home</a>
-                <a href="/search">Search</a>
-                <a href="/listings">All Listings</a>
+                <Link to="/">Home</Link>
+                <Link to="/search">Search</Link>
+                <Link to="/listings">All Listings</Link>
                 <div id="user">
-                    <a href="/listings/create">Create Listing</a>
-                    <a href="/logout">Logout</a>
+                    <Link to="/listings/create">Create Listing</Link>
+                    <Link to="/logout">Logout</Link>
                 </div>
 
                 <div id="guest">
-                    <a href="/login">Login</a>
-                    <a href="/register">Register</a>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
                 </div>
             </nav>
         </header>

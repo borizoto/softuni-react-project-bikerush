@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Home() {
     return (
         <>
@@ -10,12 +12,12 @@ export default function Home() {
                     sale today and connect with buyers near you!
                 </p>
                 <div className="hero-buttons">
-                    <a href="search.html" className="btn">
+                    <Link to="/search" className="btn">
                         Browse Listings
-                    </a>
-                    <a href="create-offer.html" className="btn">
+                    </Link>
+                    <Link to="/listings/create" className="btn">
                         Sell Your Bike
-                    </a>
+                    </Link>
                 </div>
             </section>
             {/* Latest Listings Section */}
