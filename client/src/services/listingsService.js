@@ -10,4 +10,6 @@ export const getAll = async () => {
     return listings;
 }
 
+export const getOne = (listingId) => request('GET', `${BASE_URL}/listings/${listingId}`);
+
 export const create = (bikeData) => request('POST', `${BASE_URL}/listings`, bikeData);

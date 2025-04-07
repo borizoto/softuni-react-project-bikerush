@@ -1,26 +1,38 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
+import { getOne } from "../../services/listingsService";
+
 export default function ListingsDetails() {
+    const { listingId } = useParams();
+
+    const [listing, setListing] = useState({});
+
+    useEffect(() => {
+        getOne(listingId)
+            .then(setListing)
+    }, [])
+
     return (
         <section id="bike-details">
             <h1>Bike Listing Details</h1>
             <div className="info-section">
                 <div className="bike-header">
-                    <img className="bike-img" src="images/trek-marlin.jpg" alt="Trek Marlin" />
-                    <h1>Trek Marlin 7</h1>
-                    <span className="year">Model Year: 2022</span>
-                    <p className="category">Category: MTB</p>
-                    <p className="frame-material">Frame Material: Aluminium</p>
-                    <p className="price">Price: €600</p>
-                    <p className="location">Location: Sofia</p>
+                    <img className="bike-img" src={listing.imageUrl1} alt={`${listing.brand} ${listing.model}`} />
+                    <h1>{listing.brand} {listing.model}</h1>
+                    <span className="year">Model Year: {listing.year}</span>
+                    <p className="category">Category: {listing.category}</p>
+                    <p className="category">Bike Type: {listing.type}</p>
+                    <p className="frame-material">Frame Material: {listing.frameMaterial}</p>
+                    <p className="price">Price: {listing.price} {listing.currency}</p>
+                    <p className="location">Location: {listing.location}</p>
                 </div>
-                <p className="information">
-                    A great mountain bike perfect for both trails and rough terrains. Equipped with high-quality components and designed to handle tough rides.
-                    Ideal for beginners and intermediate riders looking for a reliable bike.
-                </p>
+                <p className="information">{listing.information}</p>
                 <div className="bike-images">
                     <h2>Gallery:</h2>
-                    <img src="images/bike-1-1.jpg" alt="Trek Marlin Side View" />
-                    <img src="images/bike-1-2.jpg" alt="Trek Marlin Close-Up" />
-                    <img src="images/bike-1-3.jpg" alt="Trek Marlin Detail" />
+                    <img src={listing.imageUrl1} alt={`${listing.brand} ${listing.model} Side View`} />
+                    <img src={listing.imageUrl2} alt={`${listing.brand} ${listing.model} Close-Up`} />
+                    <img src={listing.imageUrl3} alt={`${listing.brand} ${listing.model} Detail`} />
                 </div>
 
                 {/* Comments Section */}
