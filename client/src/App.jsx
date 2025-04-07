@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Route, Routes } from 'react-router'
 
 import bikeLogo from '/bikeIcon.png'
@@ -14,6 +15,8 @@ import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
 import SearchListingForm from './components/listings-search/SearchListingForm'
 
 function App() {
+  const [email, setEmail] = useState('');
+
   return (
     <div id='content'>
       {/* Header */}
@@ -32,9 +35,9 @@ function App() {
 
           <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-          <Route path='/listings/:listingId/details' element={<ListingsDetails />} />          
+          <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
 
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<Login setEmail={setEmail} />} />
 
           <Route path='/register' element={<Register />} />
         </Routes>
