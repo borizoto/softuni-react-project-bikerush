@@ -12,7 +12,7 @@ export default function Home() {
                     sale today and connect with buyers near you!
                 </p>
                 <div className="hero-buttons">
-                    <Link to="/search" className="btn">
+                    <Link to="/listings" className="btn">
                         Browse Listings
                     </Link>
                     <Link to="/listings/create" className="btn">

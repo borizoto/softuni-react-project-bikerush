@@ -13,6 +13,7 @@ import EditListingForm from './components/listings-edit/EditListingForm'
 import ListingsDetails from './components/listings-details/ListingsDetails'
 import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
 import SearchListingForm from './components/listings-search/SearchListingForm'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   const [email, setEmail] = useState('');
@@ -24,6 +25,7 @@ function App() {
 
       {/* Main content */}
       <main id='main-content'>
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
 
