@@ -16,7 +16,7 @@ import SearchListingForm from './components/listings-search/SearchListingForm'
 import ScrollToTop from './components/ScrollToTop'
 
 function App() {
-  const [email, setEmail] = useState('');
+  const [authData, setAuthData] = useState('');
 
   return (
     <div id='content'>
@@ -26,6 +26,7 @@ function App() {
       {/* Main content */}
       <main id='main-content'>
         <ScrollToTop />
+        
         <Routes>
           <Route path='/' element={<Home />} />
 
@@ -37,9 +38,9 @@ function App() {
 
           <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-          <Route path='/listings/:listingId/details' element={<ListingsDetails email={email} />} />
+          <Route path='/listings/:listingId/details' element={<ListingsDetails email={authData.email} />} />
 
-          <Route path='/login' element={<Login setEmail={setEmail} />} />
+          <Route path='/login' element={<Login setAuthData={setAuthData} />} />
 
           <Route path='/register' element={<Register />} />
         </Routes>

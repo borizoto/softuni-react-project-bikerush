@@ -1,17 +1,33 @@
 import { Link, useNavigate } from "react-router";
+import { useActionState } from "react";
+
+import { useLogin } from "../../api/authApi";
+import { useError } from "../../hooks/useError";
 
 export default function Login({
-    setEmail
+    setAuthData
 }) {
     const navigate = useNavigate();
 
-    const loginAction = (formData) => {
-        const { email } = Object.fromEntries(formData);
+    const { login } = useLogin();
+    const { error, setError } = useError();
 
-        setEmail(email);
+    const loginHandler = async (prevState, formData) => {
+        const { email, password } = Object.fromEntries(formData);
 
-        navigate('/listings')
+        try {
+            const authData = await login(email, password);
+
+            setAuthData(authData);
+
+            navigate('/listings')
+        } catch (err) {
+            console.error('Error logging in:', err.message)
+            setError(err.message || 'Failed to log in profile. Please try again later.');
+        }
     }
+
+    const [state, loginAction, isPending] = useActionState(loginHandler, { email: '', password: '' });
 
     return (
         <section id="login-page">
@@ -21,7 +37,8 @@ export default function Login({
                 <input type="email" id="email" name="email" required="" />
                 <label htmlFor="password">Password:</label>
                 <input type="password" id="password" name="password" required="" />
-                <button type="submit">Login</button>
+                <button type="submit" disabled={isPending} >Login</button>
+                {error && <p className="error">{error}</p>}
             </form>
             <p>
                 Don't have an account? <Link to="/register">Register here</Link>
