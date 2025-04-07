@@ -13,7 +13,7 @@ export default function CommentsCreate({
 
         setComments(comments => [...comments, newComment]);
     }
-
+    
     return (
         <article className="create-comment">
             <label>Add new comment:</label>

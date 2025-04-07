@@ -20,7 +20,7 @@ export default function ListingsDetails({
         getOne(listingId)
             .then(setListing);
 
-        getAll()
+        getAll(listingId)
             .then(setComments);
     }, [listingId]);
 

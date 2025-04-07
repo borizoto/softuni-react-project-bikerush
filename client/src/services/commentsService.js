@@ -1,10 +1,10 @@
 import { BASE_URL } from "../config.js";
 import request from "../utils/requester.js";
 
-export const getAll = async () => {
+export const getAll = async (listingId) => {
     const result = await request('GET', `${BASE_URL}/comments`);
 
-    const comments = Object.values(result);
+    const comments = Object.values(result).filter(comment => comment.listingId === listingId);
 
     return comments;
 };
