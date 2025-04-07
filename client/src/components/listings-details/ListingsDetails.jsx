@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 import { deleteListing, getOne } from "../../services/listingsService";
 
@@ -67,9 +67,9 @@ export default function ListingsDetails() {
 
                 {/* Edit/Delete buttons (Only for the creator of this listing) */}
                 <div className="buttons">
-                    <a href="#" className="button">
+                    <Link to={`/listings/${listingId}/edit`} className="button">
                         Edit Listing
-                    </a>
+                    </Link>
                     <button onClick={deleteClicikHandler} className="button">
                         Delete Listing
                     </button>
