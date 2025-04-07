@@ -35,7 +35,7 @@ function App() {
 
           <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-          <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
+          <Route path='/listings/:listingId/details' element={<ListingsDetails email={email} />} />
 
           <Route path='/login' element={<Login setEmail={setEmail} />} />
 

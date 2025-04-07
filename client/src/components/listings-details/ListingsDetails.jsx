@@ -2,17 +2,26 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 import { deleteListing, getOne } from "../../services/listingsService";
+import { getAll } from "../../services/commentsService";
+import CommentsDetails from "../comments-details/CommentsDetails";
+import CommentsCreate from "../comments-create/CommentsCreate";
 
-export default function ListingsDetails() {
+export default function ListingsDetails({
+    email
+}) {
     const navigate = useNavigate();
 
     const { listingId } = useParams();
 
     const [listing, setListing] = useState({});
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         getOne(listingId)
-            .then(setListing)
+            .then(setListing);
+
+        getAll()
+            .then(setComments);
     }, [listingId]);
 
     const deleteClicikHandler = async () => {
@@ -53,20 +62,7 @@ export default function ListingsDetails() {
                 </div>
 
                 {/* Comments Section */}
-                <div className="details-comments">
-                    <h2>Comments:</h2>
-                    <ul>
-                        {/* List all comments for this bike (If any) */}
-                        <li className="comment">
-                            <p>Content: This bike is amazing! Perfect for mountain trails.</p>
-                        </li>
-                        <li className="comment">
-                            <p>Content: Great value for the price.</p>
-                        </li>
-                    </ul>
-                    {/* Display paragraph: If there are no comments */}
-                    <p className="no-comment">No comments yet.</p>
-                </div>
+                <CommentsDetails comments={comments} />
 
                 {/* Edit/Delete buttons (Only for the creator of this listing) */}
                 <div className="buttons">
@@ -84,28 +80,18 @@ export default function ListingsDetails() {
             </div>
 
             {/* Add Comment (Only for logged-in users, excluding the creator of the current listing) */}
+            {email && (
+                <>
+                    <CommentsCreate email={email} setComments={setComments} />
 
-            <div className="watchlist">
-                <button className="button">
-                    Add to Watchlist
-                </button>
-            </div>
+                    <div className="watchlist">
+                        <button className="button">
+                            Add to Watchlist
+                        </button>
+                    </div>
+                </>
+            )}
 
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form">
-                    <textarea
-                        name="comment"
-                        placeholder="Leave a comment..."
-                        defaultValue={""}
-                    />
-                    <input
-                        className="btn submit"
-                        type="submit"
-                        value="Add Comment"
-                    />
-                </form>
-            </article>
         </section>
     );
 }
