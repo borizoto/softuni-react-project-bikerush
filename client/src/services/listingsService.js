@@ -13,3 +13,5 @@ export const getAll = async () => {
 export const getOne = (listingId) => request('GET', `${BASE_URL}/listings/${listingId}`);
 
 export const create = (bikeData) => request('POST', `${BASE_URL}/listings`, bikeData);
+
+export const deleteListing = (listingId) => request('DELETE', `${BASE_URL}/listings/${listingId}`);

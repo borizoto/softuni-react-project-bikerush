@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-import { getOne } from "../../services/listingsService";
+import { deleteListing, getOne } from "../../services/listingsService";
 
 export default function ListingsDetails() {
+    const navigate = useNavigate();
+
     const { listingId } = useParams();
 
     const [listing, setListing] = useState({});
@@ -11,7 +13,19 @@ export default function ListingsDetails() {
     useEffect(() => {
         getOne(listingId)
             .then(setListing)
-    }, [])
+    }, []);
+
+    const deleteClicikHandler = async () => {
+        const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
+
+        if (!isConfirmed) {
+            return;
+        }
+
+        await deleteListing(listingId);
+
+        navigate('/listings');
+    }
 
     return (
         <section id="bike-details">
@@ -56,9 +70,9 @@ export default function ListingsDetails() {
                     <a href="#" className="button">
                         Edit Listing
                     </a>
-                    <a href="#" className="button">
+                    <button onClick={deleteClicikHandler} className="button">
                         Delete Listing
-                    </a>
+                    </button>
                 </div>
 
                 <span className="watching">
