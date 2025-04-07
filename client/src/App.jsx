@@ -30,9 +30,9 @@ function App() {
 
           <Route path='/search' element={<SearchListingForm />} />
 
-          <Route path='/#' element={<EditListingForm />} />
+          <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-          <Route path='/#' element={<ListingsDetails />} />          
+          <Route path='/listings/:listingId/details' element={<ListingsDetails />} />          
 
           <Route path='/login' element={<Login />} />
 

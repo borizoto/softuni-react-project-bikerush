@@ -48,9 +48,20 @@ export default function ListingsDetails() {
                         Delete Listing
                     </a>
                 </div>
+
+                <span className="watching">
+                    5 people watching
+                </span>
             </div>
 
             {/* Add Comment (Only for logged-in users, excluding the creator of the current listing) */}
+
+            <div className="watchlist">
+                <button className="button">
+                    Add to Watchlist
+                </button>
+            </div>
+
             <article className="create-comment">
                 <label>Add new comment:</label>
                 <form className="form">

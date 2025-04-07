@@ -1,3 +1,5 @@
+import {Link} from 'react-router'
+
 export default function ListingCatalogItem({
     imageUrl1,
     category,
@@ -5,7 +7,8 @@ export default function ListingCatalogItem({
     model,
     price,
     location,
-    currency
+    currency,
+    _id
 }) {
     return (
         <div className="bikeListing">
@@ -15,9 +18,9 @@ export default function ListingCatalogItem({
                 <h2>{brand} {model}</h2>
                 <p>Price: {price} {currency}</p>
                 <p>Location: {location}</p>
-                <a href="#" className="details-button">
+                <Link to={`/listings/${_id}/details`} className="details-btn">
                     Details
-                </a>
+                </Link>
             </div>
         </div>
     );
