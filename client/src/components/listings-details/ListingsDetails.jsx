@@ -13,7 +13,7 @@ export default function ListingsDetails() {
     useEffect(() => {
         getOne(listingId)
             .then(setListing)
-    }, []);
+    }, [listingId]);
 
     const deleteClicikHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
@@ -37,7 +37,10 @@ export default function ListingsDetails() {
                     <span className="year">Model Year: {listing.year}</span>
                     <p className="category">Category: {listing.category}</p>
                     <p className="category">Bike Type: {listing.type}</p>
+                    <p className="frame-material">Frame Size: {listing.frameSize}</p>
                     <p className="frame-material">Frame Material: {listing.frameMaterial}</p>
+                    <p className="frame-material">Wheel Size: {listing.wheelSize}</p>
+                    <p className="frame-material">Bike Condition: {listing.condition}</p>
                     <p className="price">Price: {listing.price} {listing.currency}</p>
                     <p className="location">Location: {listing.location}</p>
                 </div>

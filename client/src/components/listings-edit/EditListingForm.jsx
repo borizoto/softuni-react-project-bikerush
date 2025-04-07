@@ -1,15 +1,30 @@
 import { useEffect, useState } from "react";
 
 import { brandOptions, modelOptions } from "../../data/bikeData";
-import { getOne } from "../../services/listingsService";
-import { useParams } from "react-router";
+import { edit, getOne } from "../../services/listingsService";
+import { useNavigate, useParams } from "react-router";
 
 export default function EditListingForm() {
+    const navigate = useNavigate();
     const { listingId } = useParams();
 
     const [formData, setFormData] = useState({
         brand: "",
         model: "",
+        year: "",
+        category: "",
+        type: "",
+        frameSize: "",
+        frameMaterial: "",
+        wheelSize: "",
+        condition: "",
+        location: "",
+        price: "",
+        currency: "",
+        information: "",
+        imageUrl1: "",
+        imageUrl2: "",
+        imageUrl3: "",
     });
 
     const [listing, setListing] = useState({});
@@ -20,10 +35,24 @@ export default function EditListingForm() {
                 setListing(listingData);
                 setFormData({
                     brand: listingData.brand,
-                    model: listingData.model
+                    model: listingData.model,
+                    year: listingData.year,
+                    category: listingData.category,
+                    type: listingData.type,
+                    frameSize: listingData.frameSize,
+                    frameMaterial: listingData.frameMaterial,
+                    wheelSize: listingData.wheelSize,
+                    condition: listingData.condition,
+                    location: listingData.location,
+                    price: listingData.price,
+                    currency: listingData.currency,
+                    information: listingData.information,
+                    imageUrl1: listingData.imageUrl1,
+                    imageUrl2: listingData.imageUrl2,
+                    imageUrl3: listingData.imageUrl3,
                 });
             })
-    }, [])
+    }, [listingId])
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -35,15 +64,17 @@ export default function EditListingForm() {
         }));
     };
 
-    // const submitHandler = (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.target);
-    //     const data = Object.fromEntries(formData)
-    // }
+    const editAction = async (formData) => {
+        const bikeData = Object.fromEntries(formData);
+
+        await edit(listingId, { ...bikeData, _id: listingId });
+
+        navigate(`/listings/${listingId}/details`);
+    }
 
     return (
         <section id="create-page">
-            <form id="create">
+            <form id="create" action={editAction}>
                 <div className="container">
                     <h1>Create Bike Listing</h1>
 
@@ -94,13 +125,14 @@ export default function EditListingForm() {
                         name="year"
                         min={1900}
                         max={2025}
-                        defaultValue={listing.year}
+                        value={formData.year}
+                        onChange={changeHandler}
                         required
                     />
 
                     {/* Bike category */}
                     <label htmlFor="category">Bike category:</label>
-                    <select name="category" id="category" defaultValue={listing.category} required>
+                    <select name="category" id="category" value={formData.category} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose a category
                         </option>
@@ -113,7 +145,7 @@ export default function EditListingForm() {
 
                     {/* Bike type */}
                     <label htmlFor="type">Bike type:</label>
-                    <select name="type" id="type" defaultValue={listing.type} required>
+                    <select name="type" id="type" value={formData.type} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose a type
                         </option>
@@ -124,7 +156,7 @@ export default function EditListingForm() {
 
                     {/* Frame size */}
                     <label htmlFor="frameSize">Frame size:</label>
-                    <select name="frameSize" id="frameSize" defaultValue={listing.frameSize} required>
+                    <select name="frameSize" id="frameSize" value={formData.frameSize} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose frame size
                         </option>
@@ -137,7 +169,7 @@ export default function EditListingForm() {
 
                     {/* Frame material */}
                     <label htmlFor="frameMaterial">Frame material:</label>
-                    <select name="frameMaterial" id="frameMaterial" defaultValue={listing.frameMaterial} required>
+                    <select name="frameMaterial" id="frameMaterial" value={formData.frameMaterial} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose frame material
                         </option>
@@ -149,7 +181,7 @@ export default function EditListingForm() {
 
                     {/* Wheel size */}
                     <label htmlFor="wheelSize">Wheel Size:</label>
-                    <select name="wheelSize" id="wheelSize" defaultValue={listing.wheelSize} required>
+                    <select name="wheelSize" id="wheelSize" value={formData.wheelSize} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose wheel size
                         </option>
@@ -163,7 +195,7 @@ export default function EditListingForm() {
 
                     {/* Condition */}
                     <label htmlFor="condition">Condition:</label>
-                    <select name="condition" id="condition" defaultValue={listing.condition} required>
+                    <select name="condition" id="condition" value={formData.condition} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose bike condition
                         </option>
@@ -173,7 +205,7 @@ export default function EditListingForm() {
 
                     {/* Location */}
                     <label htmlFor="location">Located in:</label>
-                    <select name="location" id="location" defaultValue={listing.location} required>
+                    <select name="location" id="location" value={formData.location} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose a city in which the bike is being sold
                         </option>
@@ -192,13 +224,14 @@ export default function EditListingForm() {
                         id="price"
                         name="price"
                         min={1}
-                        defaultValue={listing.price}
+                        value={formData.price}
+                        onChange={changeHandler}
                         required
                     />
 
                     {/* Currency */}
                     <label htmlFor="currency">Currency:</label>
-                    <select name="currency" id="currency" defaultValue={listing.currency} required>
+                    <select name="currency" id="currency" value={formData.currency} onChange={changeHandler} required>
                         <option value="" disabled hidden>
                             Choose currency
                         </option>
@@ -215,7 +248,8 @@ export default function EditListingForm() {
                         type="text"
                         id="imageUrl1"
                         name="imageUrl1"
-                        defaultValue={listing.imageUrl1}
+                        value={formData.imageUrl1}
+                        onChange={changeHandler}
                         required
                     />
 
@@ -224,7 +258,8 @@ export default function EditListingForm() {
                         type="text"
                         id="imageUrl2"
                         name="imageUrl2"
-                        defaultValue={listing.imageUrl2}
+                        value={formData.imageUrl2}
+                        onChange={changeHandler}
                         required
                     />
 
@@ -233,7 +268,8 @@ export default function EditListingForm() {
                         type="text"
                         id="imageUrl3"
                         name="imageUrl3"
-                        defaultValue={listing.imageUrl3}
+                        value={formData.imageUrl3}
+                        onChange={changeHandler}
                         required
                     />
 
