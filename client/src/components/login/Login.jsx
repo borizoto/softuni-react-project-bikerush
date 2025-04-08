@@ -16,8 +16,14 @@ export default function Login() {
     const loginHandler = async (prevState, formData) => {
         const { email, password } = Object.fromEntries(formData);
 
+        if (!email || !password) {
+            return setError('All fields must be filled!');
+        }
+
         try {
             const authData = await login(email, password);
+
+            delete authData.password;
 
             setAuthData(authData);
 
