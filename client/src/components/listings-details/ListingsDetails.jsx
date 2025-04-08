@@ -18,7 +18,9 @@ export default function ListingsDetails() {
     const { deleteListing } = useDeleteListing();
     const [comments, setComments] = useState([]);
 
-    const { email } = useContext(UserContext);
+    const { email, _id } = useContext(UserContext);
+
+    const isOwner = listing._ownerId === _id;
 
     useEffect(() => {
         getAll(listingId)
@@ -78,17 +80,17 @@ export default function ListingsDetails() {
                         <CommentsDetails comments={comments} />
 
                         {/* Edit/Delete buttons (Only for the creator of this listing) */}
-                        <div className="buttons">
+                        {isOwner && (<div className="buttons">
                             <Link to={`/listings/${listingId}/edit`} className="button">
                                 Edit Listing
                             </Link>
                             <button onClick={deleteClicikHandler} className="button">
                                 Delete Listing
                             </button>
-                        </div>
+                        </div>)}
 
                         <span className="watching">
-                            5 people watching
+                            In 5 people’s watchlists.
                         </span>
                     </div>
 
