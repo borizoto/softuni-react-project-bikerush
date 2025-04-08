@@ -14,42 +14,45 @@ import ListingsDetails from './components/listings-details/ListingsDetails'
 import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
 import SearchListingForm from './components/listings-search/SearchListingForm'
 import ScrollToTop from './components/ScrollToTop'
+import { UserContext } from './contexts/UserContext'
 
 function App() {
   const [authData, setAuthData] = useState('');
 
   return (
-    <div id='content'>
-      {/* Header */}
-      <Header />
+    <UserContext.Provider value={{ ...authData, setAuthData }}>
+      <div id='content'>
+        {/* Header */}
+        <Header />
 
-      {/* Main content */}
-      <main id='main-content'>
-        <ScrollToTop />
-        
-        <Routes>
-          <Route path='/' element={<Home />} />
+        {/* Main content */}
+        <main id='main-content'>
+          <ScrollToTop />
 
-          <Route path='/listings' element={<ListingsCatalog />} />
+          <Routes>
+            <Route path='/' element={<Home />} />
 
-          <Route path='/listings/create' element={<CreateListingForm />} />
+            <Route path='/listings' element={<ListingsCatalog />} />
 
-          <Route path='/search' element={<SearchListingForm />} />
+            <Route path='/listings/create' element={<CreateListingForm />} />
 
-          <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
+            <Route path='/search' element={<SearchListingForm />} />
 
-          <Route path='/listings/:listingId/details' element={<ListingsDetails email={authData.email} />} />
+            <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-          <Route path='/login' element={<Login setAuthData={setAuthData} />} />
+            <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
 
-          <Route path='/register' element={<Register />} />
-        </Routes>
-      </main>
+            <Route path='/login' element={<Login />} />
 
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+            <Route path='/register' element={<Register />} />
+          </Routes>
+        </main>
+
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </UserContext.Provider>
   )
 }
 

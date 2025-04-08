@@ -14,4 +14,4 @@ export const useError = (timeout = 5000) => {
     }, [error, timeout])
 
     return {error, setError};
-}
+}   

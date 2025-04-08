@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 import { deleteListing, getOne } from "../../services/listingsService";
 import { getAll } from "../../services/commentsService";
+import { UserContext } from "../../contexts/UserContext";
+
 import CommentsDetails from "../comments-details/CommentsDetails";
 import CommentsCreate from "../comments-create/CommentsCreate";
 
-export default function ListingsDetails({
-    email
-}) {
+export default function ListingsDetails() {
     const navigate = useNavigate();
 
     const { listingId } = useParams();
 
     const [listing, setListing] = useState({});
     const [comments, setComments] = useState([]);
+
+    const { email } = useContext(UserContext);
 
     useEffect(() => {
         getOne(listingId)
