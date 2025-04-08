@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router'
 
 import bikeLogo from '/bikeIcon.png'
 
+import { UserContext } from './contexts/UserContext'
+
 import CreateListingForm from './components/listings-create/CreateListingForm'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
@@ -14,10 +16,10 @@ import ListingsDetails from './components/listings-details/ListingsDetails'
 import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
 import SearchListingForm from './components/listings-search/SearchListingForm'
 import ScrollToTop from './components/ScrollToTop'
-import { UserContext } from './contexts/UserContext'
+import Logout from './components/logout/Logout'
 
 function App() {
-  const [authData, setAuthData] = useState('');
+  const [authData, setAuthData] = useState(null);
 
   return (
     <UserContext.Provider value={{ ...authData, setAuthData }}>
@@ -45,6 +47,8 @@ function App() {
             <Route path='/login' element={<Login />} />
 
             <Route path='/register' element={<Register />} />
+
+            <Route path='/logout' element={<Logout />} />
           </Routes>
         </main>
 

@@ -27,7 +27,7 @@ export default function Login() {
 
             setAuthData(authData);
 
-            navigate('/listings')
+            navigate('/');
         } catch (err) {
             console.error('Error logging in:', err.message)
             setError(err.message || 'Failed to log in profile. Please try again later.');

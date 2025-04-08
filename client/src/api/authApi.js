@@ -1,4 +1,6 @@
+import { useContext, useEffect } from "react";
 import request from "../utils/requester.js";
+import { UserContext } from "../contexts/UserContext.js";
 
 const authUrl = 'http://localhost:3030/users';
 
@@ -20,4 +22,20 @@ export const useRegister = () => {
     }
 
     return { register }
+}
+
+export const useLogout = () => {
+    const { accessToken, setAuthData } = useContext(UserContext);
+
+    useEffect(() => {
+        if (!accessToken) {
+            return;
+        }
+
+        request('GET', `${authUrl}/logout`, null, accessToken)
+            .then(setAuthData(null));
+
+    }, [accessToken, setAuthData])
+
+    return { isLoggedOut: !!accessToken }
 }
