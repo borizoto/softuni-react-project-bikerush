@@ -1,19 +1,25 @@
 import { useParams } from "react-router";
-import { create } from "../../services/commentsService.js";
+
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext.js";
+import { useCreateComment } from "../../api/commentsApi.js";
 
 export default function CommentsCreate({
-    email,
     setComments
 }) {
     const { listingId } = useParams();
+    const { username } = useContext(UserContext)
 
+    const { create } = useCreateComment();
+
+    //TODO: Migrate to useActionState.
     const createCommentAction = async (formData) => {
         const { comment } = Object.fromEntries(formData);
-        const newComment = await create(comment, listingId, email);
+        const newComment = await create(comment, listingId, username);
 
         setComments(comments => [...comments, newComment]);
     }
-    
+
     return (
         <article className="create-comment">
             <label>Add new comment:</label>

@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
-import { getAll } from "../../services/commentsService";
 import { UserContext } from "../../contexts/UserContext";
 
 import CommentsDetails from "../comments-details/CommentsDetails";
 import CommentsCreate from "../comments-create/CommentsCreate";
 import { useListing, useDeleteListing } from "../../api/listingsApi";
 import { useError } from "../../hooks/useError";
+import { useComments } from "../../api/commentsApi";
 
 export default function ListingsDetails() {
     const navigate = useNavigate();
@@ -16,16 +16,12 @@ export default function ListingsDetails() {
     const { setError } = useError();
     const { listing, error } = useListing(listingId)
     const { deleteListing } = useDeleteListing();
-    const [comments, setComments] = useState([]);
 
     const { email, _id } = useContext(UserContext);
 
     const isOwner = listing._ownerId === _id;
 
-    useEffect(() => {
-        getAll(listingId)
-            .then(setComments);
-    }, [listingId]);
+    const { comments, setComments } = useComments(listingId);
 
     const deleteClicikHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
@@ -97,7 +93,7 @@ export default function ListingsDetails() {
                     {/* Add Comment (Only for logged-in users, excluding the creator of the current listing) */}
                     {email && (
                         <>
-                            <CommentsCreate email={email} setComments={setComments} />
+                            <CommentsCreate setComments={setComments} />
 
                             <div className="watchlist">
                                 <button className="button">
