@@ -13,6 +13,7 @@ export default function Header() {
             </h1>
 
             <nav>
+                {username}
                 <Link to="/">Home</Link>
                 <Link to="/search">Search</Link>
                 <Link to="/listings">All Listings</Link>

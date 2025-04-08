@@ -30,7 +30,7 @@ export default function Login() {
             navigate('/');
         } catch (err) {
             console.error('Error logging in:', err.message)
-            setError(err.message || 'Failed to log in profile. Please try again later.');
+            setError(err.message);
         }
     }
 

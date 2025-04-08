@@ -1,12 +1,14 @@
 import { useState } from "react";
 
 import { brandOptions, modelOptions } from "../../data/bikeData.js";
-import { create } from "../../services/listingsService.js";
 import { useNavigate } from "react-router";
 import { useError } from "../../hooks/useError.js";
+import { useCreateListing } from "../../api/listingsApi.js";
 
 export default function CreateListingForm() {
     const navigate = useNavigate();
+
+    const { create } = useCreateListing();
 
     const { error, setError } = useError();
 
@@ -25,6 +27,7 @@ export default function CreateListingForm() {
         }));
     };
 
+    //TODO: Migrate to useActionState.
     const createListingAction = async (formData) => {
         const bikeData = Object.fromEntries(formData);
 
@@ -38,7 +41,7 @@ export default function CreateListingForm() {
             navigate('/listings');
         } catch (err) {
             console.error("Error creating listing:", err.message);
-            setError(err.message || "Failed to create listing. Please try again.");
+            setError(err.message);
         }
     }
 

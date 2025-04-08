@@ -33,7 +33,7 @@ export default function Register() {
             navigate('/');
         } catch (err) {
             console.error("Error registering:", err.message);
-            setError(err.message || "Failed to register user. Please try again.");
+            setError(err.message);
         }
     }
 
