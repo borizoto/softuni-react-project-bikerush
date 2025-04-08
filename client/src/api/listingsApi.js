@@ -63,3 +63,19 @@ export const useEditListing = () => {
 
     return { edit };
 }
+
+export const useLatestListings = () => {
+    const [latestListings, setLatestListings] = useState([]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            sortBy: '_createdOn desc',
+            pageSize: 5
+        });
+
+        request('GET', `${BASE_URL}/listings?${searchParams.toString()}`)
+            .then(setLatestListings)
+    }, [])
+
+    return { latestListings }
+}
