@@ -25,7 +25,7 @@ export const useRegister = () => {
 }
 
 export const useLogout = () => {
-    const { accessToken, setAuthData } = useContext(UserContext);
+    const { accessToken, userLogoutHandler } = useContext(UserContext);
 
     useEffect(() => {
         if (!accessToken) {
@@ -33,9 +33,9 @@ export const useLogout = () => {
         }
 
         request('GET', `${authUrl}/logout`, null, accessToken)
-            .then(setAuthData(null));
+            .then(userLogoutHandler);
 
-    }, [accessToken, setAuthData])
+    }, [accessToken, userLogoutHandler])
 
     return { isLoggedOut: !!accessToken }
 }

@@ -11,7 +11,7 @@ export default function Login() {
     const { login } = useLogin();
     const { error, setError } = useError();
 
-    const { setAuthData } = useContext(UserContext);
+    const { userLoginHandler } = useContext(UserContext);
 
     const loginHandler = async (prevState, formData) => {
         const { email, password } = Object.fromEntries(formData);
@@ -25,7 +25,7 @@ export default function Login() {
 
             delete authData.password;
 
-            setAuthData(authData);
+            userLoginHandler(authData);
 
             navigate('/');
         } catch (err) {

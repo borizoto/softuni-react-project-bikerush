@@ -10,12 +10,12 @@ export default function Register() {
     const { register } = useRegister();
     const { error, setError } = useError();
 
-    const { setAuthData } = useContext(UserContext);
+    const { userLoginHandler } = useContext(UserContext);
 
     const registerHandler = async (prevState, formData) => {
         const { username, phoneNumber, email, password, rePass } = Object.fromEntries(formData);
 
-        if (!email || !password) {
+        if (!email || !password || !username || !phoneNumber) {
             return setError('All fields must be filled!');
         }
 
@@ -28,7 +28,7 @@ export default function Register() {
 
             delete authData.password;
 
-            setAuthData(authData);
+            userLoginHandler(authData);
 
             navigate('/');
         } catch (err) {

@@ -3,9 +3,12 @@ import { useState } from "react";
 import { brandOptions, modelOptions } from "../../data/bikeData.js";
 import { create } from "../../services/listingsService.js";
 import { useNavigate } from "react-router";
+import { useError } from "../../hooks/useError.js";
 
 export default function CreateListingForm() {
     const navigate = useNavigate();
+
+    const { error, setError } = useError();
 
     const [formData, setFormData] = useState({
         brand: "",
@@ -25,9 +28,18 @@ export default function CreateListingForm() {
     const createListingAction = async (formData) => {
         const bikeData = Object.fromEntries(formData);
 
-        await create(bikeData);
+        if (!Object.values(bikeData).every(value => !!value)) {
+            return setError('All fields must be filled!');
+        }
 
-        navigate('/listings');
+        try {
+            await create(bikeData);
+
+            navigate('/listings');
+        } catch (err) {
+            console.error("Error creating listing:", err.message);
+            setError(err.message || "Failed to create listing. Please try again.");
+        }
     }
 
     return (
@@ -226,6 +238,8 @@ export default function CreateListingForm() {
 
                     <input className="btn submit" type="submit" value="Create Listing" />
                 </div>
+                {/* Display error message if there is an error */}
+                {error && <p className="error">{error}</p>}
             </form>
         </section>
     );

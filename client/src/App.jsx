@@ -21,8 +21,16 @@ import Logout from './components/logout/Logout'
 function App() {
   const [authData, setAuthData] = useState(null);
 
+  const userLoginHandler = (authData) => {
+    setAuthData(authData);
+  }
+
+  const userLogoutHandler = () => {
+    setAuthData(null);
+  }
+
   return (
-    <UserContext.Provider value={{ ...authData, setAuthData }}>
+    <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
       <div id='content'>
         {/* Header */}
         <Header />
