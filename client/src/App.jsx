@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { Route, Routes } from 'react-router'
+import { usePersistedState } from './hooks/usePersistedState'
 
-import bikeLogo from '/bikeIcon.png'
+// import bikeLogo from '/bikeIcon.png'
 
 import { UserContext } from './contexts/UserContext'
 
@@ -19,7 +19,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Logout from './components/logout/Logout'
 
 function App() {
-  const [authData, setAuthData] = useState(null);
+  const [authData, setAuthData] = usePersistedState('auth', null);
 
   const userLoginHandler = (authData) => {
     setAuthData(authData);
@@ -27,6 +27,7 @@ function App() {
 
   const userLogoutHandler = () => {
     setAuthData(null);
+    sessionStorage.removeItem('auth');
   }
 
   return (
