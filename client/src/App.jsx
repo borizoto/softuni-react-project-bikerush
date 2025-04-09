@@ -17,6 +17,7 @@ import SearchListingForm from './components/listings-search/SearchListingForm'
 import ScrollToTop from './components/ScrollToTop'
 import Logout from './components/logout/Logout'
 import AuthGuard from './guards/AuthGuard'
+import NoAuthGuard from './guards/NoAuthGuard'
 
 function App() {
   return (
@@ -30,11 +31,12 @@ function App() {
           <ScrollToTop />
 
           <Routes>
-            <Route path='/' element={<Home />} />
 
-            <Route path='/login' element={<Login />} />
+            <Route element={<NoAuthGuard />}>
+              <Route path='/login' element={<Login />} />
 
-            <Route path='/register' element={<Register />} />
+              <Route path='/register' element={<Register />} />
+            </Route>
 
             <Route path='/listings' element={<ListingsCatalog />} />
 
@@ -45,6 +47,8 @@ function App() {
 
               <Route path='/logout' element={<Logout />} />
             </Route>
+
+            <Route path='/' element={<Home />} />
 
             <Route path='/search' element={<SearchListingForm />} />
 
