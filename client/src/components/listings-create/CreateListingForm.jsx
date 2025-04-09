@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { brandOptions, modelOptions } from "../../data/bikeData.js";
 import { useNavigate } from "react-router";
 import { useError } from "../../hooks/useError.js";
 import { useCreateListing } from "../../api/listingsApi.js";
+import { UserContext } from "../../contexts/UserContext.js";
 
 export default function CreateListingForm() {
     const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function CreateListingForm() {
     const { create } = useCreateListing();
 
     const { error, setError } = useError();
+
+    const { email, username, phoneNumber } = useContext(UserContext)
 
     const [formData, setFormData] = useState({
         brand: "",
@@ -36,7 +39,7 @@ export default function CreateListingForm() {
         }
 
         try {
-            await create(bikeData);
+            await create({ ...bikeData, username, email, phoneNumber });
 
             navigate('/listings');
         } catch (err) {

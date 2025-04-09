@@ -17,11 +17,13 @@ export default function ListingsDetails() {
     const { listing, error } = useListing(listingId)
     const { deleteListing } = useDeleteListing();
 
-    const { email, _id } = useContext(UserContext);
+    const { email, _id, phoneNumber, username } = useContext(UserContext);
 
     const isOwner = listing._ownerId === _id;
 
     const { comments, setComments } = useComments(listingId);
+
+    console.log(listing)
 
     const deleteClicikHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
@@ -53,6 +55,11 @@ export default function ListingsDetails() {
                     <div className="info-section">
                         <div className="bike-header">
                             <img className="bike-img" src={listing.imageUrl1} alt={`${listing.brand} ${listing.model}`} />
+                            <div className="bike-images">
+                                <h2>Gallery:</h2>
+                                <img src={listing.imageUrl2} alt={`${listing.brand} ${listing.model} Close-Up`} />
+                                <img src={listing.imageUrl3} alt={`${listing.brand} ${listing.model} Detail`} />
+                            </div>
                             <h1>{listing.brand} {listing.model}</h1>
                             <span className="year">Model Year: {listing.year}</span>
                             <p className="category">Category: {listing.category}</p>
@@ -65,11 +72,12 @@ export default function ListingsDetails() {
                             <p className="location">Location: {listing.location}</p>
                         </div>
                         <p className="information">{listing.information}</p>
-                        <div className="bike-images">
-                            <h2>Gallery:</h2>
-                            <img src={listing.imageUrl1} alt={`${listing.brand} ${listing.model} Side View`} />
-                            <img src={listing.imageUrl2} alt={`${listing.brand} ${listing.model} Close-Up`} />
-                            <img src={listing.imageUrl3} alt={`${listing.brand} ${listing.model} Detail`} />
+
+                        <div className="seller-contacts">
+                            <h3>Seller's Contact:</h3>
+                            <p><strong>Username:</strong> {username}</p>
+                            <p><strong>Email:</strong> {email}</p>
+                            <p><strong>Phone Number:</strong> {phoneNumber}</p>
                         </div>
 
                         {/* Comments Section */}
