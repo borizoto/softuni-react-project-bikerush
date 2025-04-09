@@ -16,6 +16,7 @@ import ListingsCatalog from './components/listings-catalog/ListingsCatalog'
 import SearchListingForm from './components/listings-search/SearchListingForm'
 import ScrollToTop from './components/ScrollToTop'
 import Logout from './components/logout/Logout'
+import AuthGuard from './guards/AuthGuard'
 
 function App() {
   return (
@@ -31,21 +32,24 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
 
-            <Route path='/listings' element={<ListingsCatalog />} />
-
-            <Route path='/listings/create' element={<CreateListingForm />} />
-
-            <Route path='/search' element={<SearchListingForm />} />
-
-            <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
-
-            <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
-
             <Route path='/login' element={<Login />} />
 
             <Route path='/register' element={<Register />} />
 
-            <Route path='/logout' element={<Logout />} />
+            <Route path='/listings' element={<ListingsCatalog />} />
+
+            <Route element={<AuthGuard />}>
+              <Route path='/listings/create' element={<CreateListingForm />} />
+
+              <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
+
+              <Route path='/logout' element={<Logout />} />
+            </Route>
+
+            <Route path='/search' element={<SearchListingForm />} />
+
+            <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
+
           </Routes>
         </main>
 

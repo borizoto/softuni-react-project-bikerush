@@ -10,5 +10,7 @@ export const useAuthRequest = () => {
         return request(method, url, data, accessToken);
     }
 
-    return { authRequest };
+    const isAuthenticated = !!accessToken;
+
+    return { authRequest, isAuthenticated };
 }
