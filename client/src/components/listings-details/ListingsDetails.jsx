@@ -8,22 +8,27 @@ import CommentsCreate from "../comments-create/CommentsCreate";
 import { useListing, useDeleteListing } from "../../api/listingsApi";
 import { useError } from "../../hooks/useError";
 import { useComments } from "../../api/commentsApi";
+import { useAddedToWatchlistListing, useCreateWatchlisted } from "../../api/watchlistApi";
 
 export default function ListingsDetails() {
     const navigate = useNavigate();
+    const { email, _id } = useContext(UserContext);
 
     const { listingId } = useParams();
     const { setError } = useError();
     const { listing, error } = useListing(listingId)
+
+    const { addedToWatchlistListing, setAddedToWatchlistListing } = useAddedToWatchlistListing(listingId, _id)
     const { deleteListing } = useDeleteListing();
 
-    const { email, _id, phoneNumber, username } = useContext(UserContext);
-
     const isOwner = listing._ownerId === _id;
+    const hasAddedToWatchList = addedToWatchlistListing.length > 0;
+
+    console.log(hasAddedToWatchList)
 
     const { comments, setComments } = useComments(listingId);
 
-    console.log(listing)
+    const { create } = useCreateWatchlisted();
 
     const deleteClicikHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
@@ -37,7 +42,17 @@ export default function ListingsDetails() {
 
             navigate('/listings');
         } catch (err) {
-            console.error('Error logging in:', err.message)
+            console.error('Error deleting listing:', err.message)
+            setError(err.message);
+        }
+    }
+
+    const addToWachlistiClickHandler = async () => {
+        try {
+            const addedListing = await create(listingId, listing.brand, listing.model, listing.imageUrl1);
+            setAddedToWatchlistListing([addedListing]);
+        } catch (err) {
+            console.error('Error trying to add listing to watchlist:', err.message)
             setError(err.message);
         }
     }
@@ -75,9 +90,9 @@ export default function ListingsDetails() {
 
                         <div className="seller-contacts">
                             <h3>Seller's Contact:</h3>
-                            <p><strong>Username:</strong> {username}</p>
-                            <p><strong>Email:</strong> {email}</p>
-                            <p><strong>Phone Number:</strong> {phoneNumber}</p>
+                            <p><strong>Username:</strong> {listing.username}</p>
+                            <p><strong>Email:</strong> {listing.email}</p>
+                            <p><strong>Phone Number:</strong> {listing.phoneNumber}</p>
                         </div>
 
                         {/* Comments Section */}
@@ -99,15 +114,24 @@ export default function ListingsDetails() {
                     </div>
 
                     {/* Add Comment (Only for logged-in users, excluding the creator of the current listing) */}
-                    {email && (
+                    {(email && !isOwner) && (
                         <>
                             <CommentsCreate setComments={setComments} />
 
-                            <div className="watchlist">
-                                <button className="button">
-                                    Add to Watchlist
-                                </button>
-                            </div>
+                            {!hasAddedToWatchList
+                                ?
+                                (<div className="watchlist">
+                                    <button className="button" onClick={addToWachlistiClickHandler}>
+                                        Add to Watchlist
+                                    </button>
+                                </div>)
+                                :
+                                (<div className="watchlist">
+                                    <button className="button" disabled>
+                                        Already Added to Watchlist
+                                    </button>
+                                </div>)
+                            }
                         </>
                     )}
 

@@ -18,6 +18,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Logout from './components/logout/Logout'
 import AuthGuard from './guards/AuthGuard'
 import NoAuthGuard from './guards/NoAuthGuard'
+import UserProfile from './components/pofile/UserProfile'
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
               <Route path='/listings/create' element={<CreateListingForm />} />
 
               <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
+
+              <Route path='/profile' element={<UserProfile /> } />
 
               <Route path='/logout' element={<Logout />} />
             </Route>

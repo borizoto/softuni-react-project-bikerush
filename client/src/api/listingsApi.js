@@ -79,3 +79,17 @@ export const useLatestListings = () => {
 
     return { latestListings }
 }
+
+export const useOwnListings = (userId) => {
+    const [ownListings, setOwnListings] = useState([]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            where: `_ownerId="${userId}"`
+        })
+        request('GET', `${BASE_URL}/listings?${searchParams.toString()}`)
+            .then(setOwnListings)
+    }, [userId])
+
+    return { ownListings };
+}

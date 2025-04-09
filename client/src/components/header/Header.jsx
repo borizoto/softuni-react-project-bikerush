@@ -24,6 +24,7 @@ export default function Header() {
                     ? (
                         <div id="user">
                             <Link to="/listings/create">Create Listing</Link>
+                            <Link to="/profile">Profile</Link>
                             <Link to="/logout">Logout</Link>
                         </div>
                     )
