@@ -27,16 +27,30 @@ export const useAddedToWatchlist = (userId) => {
     return { addedToWatchlist, setAddedToWatchlist };
 }
 
-export const useAddedToWatchlistListing = (listingId, userId) => {
-    const [addedToWatchlistListing, setAddedToWatchlistListing] = useState({});
+export const useOwnWatchlist = (listingId, userId) => {
+    const [ownWatchlist, setOwnWatchlist] = useState({});
 
     useEffect(() => {
         const searchParams = new URLSearchParams({
             where: `_ownerId="${userId}" AND listingId="${listingId}"`
         })
         request('GET', `${BASE_URL}/watchlist?${searchParams.toString()}`)
-            .then(setAddedToWatchlistListing)
+            .then(setOwnWatchlist)
     }, [listingId, userId])
 
-    return { addedToWatchlistListing, setAddedToWatchlistListing };
+    return { ownWatchlist, setOwnWatchlist };
+}
+
+export const useWatchlistedCount = (listingId) => {
+    const [watchlisted, setWatchlisted] = useState([]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            where: `listingId="${listingId}"`
+        })
+        request('GET', `${BASE_URL}/watchlist?${searchParams.toString()}`)
+            .then(setWatchlisted)
+    }, [listingId])
+
+    return { watchlisted }
 }

@@ -1,11 +1,8 @@
-import { useContext } from "react";
 import { Link } from "react-router";
 
-import { UserContext } from "../../contexts/UserContext";
 import { useAuthRequest } from "../../hooks/useAuthRequest";
 
 export default function Header() {
-    const { username } = useContext(UserContext);
     const { isAuthenticated } = useAuthRequest();
 
     return (
@@ -15,7 +12,6 @@ export default function Header() {
             </h1>
 
             <nav>
-                {username}
                 <Link to="/">Home</Link>
                 <Link to="/search">Search</Link>
                 <Link to="/listings">All Listings</Link>
