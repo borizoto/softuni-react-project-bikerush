@@ -27,7 +27,7 @@ export default function Login() {
 
             userLoginHandler(authData);
 
-            navigate('/');
+            navigate(-1);
         } catch (err) {
             console.error('Error logging in:', err.message)
             setError(err.message);
