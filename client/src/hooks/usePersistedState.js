@@ -2,7 +2,6 @@ import { useState } from "react"
 
 
 export const usePersistedState = (storageKey, initialState) => {
-
     const [state, setState] = useState(() => {
         const persistedStateJson = sessionStorage.getItem(storageKey);
 

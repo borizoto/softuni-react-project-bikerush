@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router'
-import { usePersistedState } from './hooks/usePersistedState'
 
 // import bikeLogo from '/bikeIcon.png'
 
-import { UserContext } from './contexts/UserContext'
+import UserProvider from './providers/UserProvider'
 
 import CreateListingForm from './components/listings-create/CreateListingForm'
 import Header from './components/header/Header'
@@ -19,19 +18,8 @@ import ScrollToTop from './components/ScrollToTop'
 import Logout from './components/logout/Logout'
 
 function App() {
-  const [authData, setAuthData] = usePersistedState('auth', null);
-
-  const userLoginHandler = (authData) => {
-    setAuthData(authData);
-  }
-
-  const userLogoutHandler = () => {
-    setAuthData(null);
-    sessionStorage.removeItem('auth');
-  }
-
   return (
-    <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
+    <UserProvider>
       <div id='content'>
         {/* Header */}
         <Header />
@@ -65,7 +53,7 @@ function App() {
           <Footer />
         </footer>
       </div>
-    </UserContext.Provider>
+    </UserProvider>
   )
 }
 
