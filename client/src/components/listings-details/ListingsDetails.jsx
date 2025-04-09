@@ -8,27 +8,23 @@ import CommentsCreate from "../comments-create/CommentsCreate";
 import { useListing, useDeleteListing } from "../../api/listingsApi";
 import { useError } from "../../hooks/useError";
 import { useComments } from "../../api/commentsApi";
-import { useAddedToWatchlistListing, useCreateWatchlisted } from "../../api/watchlistApi";
+import { useOwnWatchlist, useCreateWatchlisted, useWatchlistedCount } from "../../api/watchlistApi";
 
 export default function ListingsDetails() {
     const navigate = useNavigate();
-    const { email, _id } = useContext(UserContext);
 
+    const { email, _id } = useContext(UserContext);
     const { listingId } = useParams();
     const { setError } = useError();
     const { listing, error } = useListing(listingId)
-
-    const { addedToWatchlistListing, setAddedToWatchlistListing } = useAddedToWatchlistListing(listingId, _id)
+    const { ownWatchlist, setOwnWatchlist } = useOwnWatchlist(listingId, _id)
     const { deleteListing } = useDeleteListing();
+    const { comments, setComments } = useComments(listingId);
+    const { create } = useCreateWatchlisted();
+    const { watchlisted } = useWatchlistedCount(listingId);
 
     const isOwner = listing._ownerId === _id;
-    const hasAddedToWatchList = addedToWatchlistListing.length > 0;
-
-    console.log(hasAddedToWatchList)
-
-    const { comments, setComments } = useComments(listingId);
-
-    const { create } = useCreateWatchlisted();
+    const hasAddedToWatchList = ownWatchlist.length > 0;
 
     const deleteClicikHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${listing.brand} ${listing.model} listing?`);
@@ -50,7 +46,7 @@ export default function ListingsDetails() {
     const addToWachlistiClickHandler = async () => {
         try {
             const addedListing = await create(listingId, listing.brand, listing.model, listing.imageUrl1);
-            setAddedToWatchlistListing([addedListing]);
+            setOwnWatchlist([addedListing]);
         } catch (err) {
             console.error('Error trying to add listing to watchlist:', err.message)
             setError(err.message);
@@ -109,7 +105,7 @@ export default function ListingsDetails() {
                         </div>)}
 
                         <span className="watching">
-                            In 5 people’s watchlists.
+                            In {watchlisted.length} people’s watchlists.
                         </span>
                     </div>
 
