@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../api/authApi";
 import { useError } from "../../hooks/useError";
-import { useActionState, useContext } from "react";
+import { useActionState, useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Register() {
@@ -11,6 +11,21 @@ export default function Register() {
     const { error, setError } = useError();
 
     const { userLoginHandler } = useContext(UserContext);
+
+    const [formData, setFormData] = useState({
+        username: '',
+        phoneNumber: '',
+        email: ''
+    })
+
+    const changeHandler = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((data) => ({
+            ...data,
+            [name]: value
+        }))
+    }
 
     const registerHandler = async (prevState, formData) => {
         const { username, phoneNumber, email, password, rePass } = Object.fromEntries(formData);
@@ -44,13 +59,13 @@ export default function Register() {
             <h1>Register</h1>
             <form action={registerAction}>
                 <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" required="" />
+                <input type="text" id="username" name="username" value={formData.username} onChange={changeHandler} required="" />
 
                 <label htmlFor="phone">Phone Number:</label>
-                <input type="text" id="phone" name="phoneNumber" required="" />
+                <input type="text" id="phone" name="phoneNumber" value={formData.phoneNumber} onChange={changeHandler} required="" />
 
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" required="" />
+                <input type="email" id="email" name="email" required="" value={formData.email} onChange={changeHandler} />
 
                 <label htmlFor="password">Password:</label>
                 <input type="password" id="password" name="password" required="" />
