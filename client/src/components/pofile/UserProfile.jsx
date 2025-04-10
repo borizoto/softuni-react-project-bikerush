@@ -8,7 +8,7 @@ export default function UserProfile() {
     const { username, _id } = useContext(UserContext)
     const { ownListings } = useOwnListings(_id);
     const { addedToWatchlist } = useAddedToWatchlist(_id);
-    
+
     return (
         <>
             <section className="profile-hero">
@@ -27,9 +27,7 @@ export default function UserProfile() {
                         {ownListings?.length > 0 ? (
                             ownListings.map((bike) => <ProfileListingItem key={bike._id} {...bike} />)
                         ) : (
-                            <div className="no-post-container">
-                                <p className="no-post">You haven't created a bike listing yet.</p>
-                            </div>
+                            <p className="no-post">You haven't created a bike listing yet.</p>
                         )}
                     </div>
                 </div>

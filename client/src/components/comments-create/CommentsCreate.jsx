@@ -15,6 +15,11 @@ export default function CommentsCreate({
     //TODO: Migrate to useActionState.
     const createCommentAction = async (formData) => {
         const { comment } = Object.fromEntries(formData);
+
+        if (comment === '') {
+            return;
+        }
+
         const newComment = await create(comment, listingId, username);
 
         setComments(comments => [...comments, newComment]);
@@ -29,11 +34,7 @@ export default function CommentsCreate({
                     placeholder="Leave a comment..."
                     defaultValue={""}
                 />
-                <input
-                    className="btn submit"
-                    type="submit"
-                    value="Add Comment"
-                />
+                <button className="button">Add Comment</button>
             </form>
         </article>
     );

@@ -7,7 +7,7 @@ export default function CommentsDetails({
             <h2>Comments:</h2>
             <ul>
                 {comments.length > 0 
-                    ? comments.map(comment => <li key={comment._id} className="comment"><p>{comment.email}: {comment.comment}</p></li>)
+                    ? comments.map(comment => <li key={comment._id} className="comment"><p><strong>{comment.email}</strong>: {comment.comment}</p></li>)
                     : <p className="no-comment">No comments.</p>
                 }
             </ul>

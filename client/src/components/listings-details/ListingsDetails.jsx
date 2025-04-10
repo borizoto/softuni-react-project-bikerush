@@ -111,24 +111,26 @@ export default function ListingsDetails() {
 
                     {/* Add Comment (Only for logged-in users, excluding the creator of the current listing) */}
                     {(email && !isOwner) && (
-                        <>
+                        <div className="comment-watchlist-actions"> 
                             <CommentsCreate setComments={setComments} />
 
                             {!hasAddedToWatchList
-                                ?
-                                (<div className="watchlist">
-                                    <button className="button" onClick={addToWachlistiClickHandler}>
-                                        Add to Watchlist
-                                    </button>
-                                </div>)
-                                :
-                                (<div className="watchlist">
-                                    <button className="button" disabled>
-                                        Already Added to Watchlist
-                                    </button>
-                                </div>)
+                                ? (
+                                    <div className="watchlist">
+                                        <button className="button" onClick={addToWachlistiClickHandler}>
+                                            Add to Watchlist
+                                        </button>
+                                    </div>
+                                )
+                                : (
+                                    <div className="watchlist">
+                                        <button className="button" disabled>
+                                            Already Added to Watchlist
+                                        </button>
+                                    </div>
+                                )
                             }
-                        </>
+                        </div>
                     )}
 
                 </section>)
