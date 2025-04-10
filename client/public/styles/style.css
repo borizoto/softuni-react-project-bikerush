@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
 @import "variables.css";
 @import "CreateListingForm.css";
 @import "error.css";
@@ -11,3 +13,7 @@
 @import "profile.css";
 @import "details.css";
 @import "catalog.css";
+
+* {
+    font-family: 'Rubik', sans-serif;
+}
