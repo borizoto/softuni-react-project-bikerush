@@ -1,30 +1,14 @@
 import { useState } from "react";
 
+import { brandOptions, modelOptions } from "../../data/bikeData";
+import { useNavigate } from "react-router";
 export default function SearchListingForm() {
+    const navigate = useNavigate();
+    
     const [formData, setFormData] = useState({
         brand: "",
         model: "",
     });
-
-    const brandOptions = [
-        "Orbea",
-        "Radon",
-        "YT",
-        "Scott",
-        "Canyon",
-        "Trek",
-        "Cube",
-    ];
-
-    const modelOptions = {
-        Orbea: ["Onna", "Alma", "Oiz", "Laufey", "Occam", "Rallon"],
-        Radon: ["Swoop", "Cragger", "Jelaous"],
-        YT: ["Izzo", "Jeffsy", "Capra"],
-        Scott: ["Spark", "Gambler"],
-        Canyon: ["Stoic", "Spectral", "Neuron"],
-        Trek: ["Roscoe", "Marlin"],
-        Cube: ["Reaction", "One77"],
-    };
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -36,19 +20,17 @@ export default function SearchListingForm() {
         }));
     };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData)
-        console.log('created offer')
-        console.log(data)
+    const searchAction = (formData) => {
+        const searchData = Object.fromEntries(formData);
+
+        navigate("/search/results", { state: searchData });
     }
 
     return (
         <section id="create-page">
-            <form id="create" onSubmit={submitHandler}>
+            <form id="create" action={searchAction}>
                 <div className="container">
-                    <h1>Create Bike Listing</h1>
+                    <h1>Search Bike Listing</h1>
 
                     {/* Brand select */}
                     <label htmlFor="brand">Bike Brand:</label>

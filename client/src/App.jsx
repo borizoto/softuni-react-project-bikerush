@@ -19,6 +19,7 @@ import Logout from './components/logout/Logout'
 import AuthGuard from './guards/AuthGuard'
 import NoAuthGuard from './guards/NoAuthGuard'
 import UserProfile from './components/pofile/UserProfile'
+import SearchResults from './components/listings-search/SearchResults'
 
 function App() {
   return (
@@ -46,7 +47,7 @@ function App() {
 
               <Route path='/listings/:listingId/edit' element={<EditListingForm />} />
 
-              <Route path='/profile' element={<UserProfile /> } />
+              <Route path='/profile' element={<UserProfile />} />
 
               <Route path='/logout' element={<Logout />} />
             </Route>
@@ -54,6 +55,8 @@ function App() {
             <Route path='/' element={<Home />} />
 
             <Route path='/search' element={<SearchListingForm />} />
+
+            <Route path='/search/results' element={<SearchResults />} />
 
             <Route path='/listings/:listingId/details' element={<ListingsDetails />} />
 

@@ -15,8 +15,67 @@ export const useListings = () => {
             })
     }, [])
 
-    return { listings }
+    return { listings }  
 }
+
+//TODO: Fix filtering to be on the server with this hook
+// export const useSearchedListings = (searchData) => {
+//     const [foundListings, setFoundListings] = useState([]);
+
+//     useEffect(() => {
+//         const conditions = [];
+
+//         if (searchData.brand) {
+//             conditions.push(`brand="${searchData.brand}"`);
+//         }
+//         if (searchData.model) {
+//             conditions.push(`model="${searchData.model}"`);
+//         }
+//         if (searchData.year && searchData.year !== '') { 
+//             conditions.push(`year="${searchData.year}"`);
+//         }
+//         if (searchData.category) {
+//             conditions.push(`category="${searchData.category}"`);
+//         }
+//         if (searchData.type) {
+//             conditions.push(`type="${searchData.type}"`);
+//         }
+//         if (searchData.frameSize) {
+//             conditions.push(`frameSize="${searchData.frameSize}"`);
+//         }
+//         if (searchData.frameMaterial) {
+//             conditions.push(`frameMaterial="${searchData.frameMaterial}"`);
+//         }
+//         if (searchData.wheelSize) {
+//             conditions.push(`wheelSize="${searchData.wheelSize}"`);
+//         }
+//         if (searchData.condition) {
+//             conditions.push(`condition="${searchData.condition}"`);
+//         }
+//         if (searchData.location) {
+//             conditions.push(`location="${searchData.location}"`);
+//         }
+//         if (searchData.price && searchData.price !== '') {  // Only add if it's not an empty string
+//             conditions.push(`price="${searchData.price}"`);
+//         }
+//         if (searchData.currency) {
+//             conditions.push(`currency="${searchData.currency}"`);
+//         }
+
+//         const whereClause = conditions.length > 0 ? conditions.join(' AND ') : '';
+
+//         const url = whereClause
+//             ? `${BASE_URL}/listings?where=${encodeURIComponent(whereClause)}`
+//             : `${BASE_URL}/listings`; // No filters if no conditions
+
+//         console.log('Request URL:', url); // For debugging
+
+//         request('GET', url)
+//             .then(setFoundListings);
+//     }, [searchData]);
+
+//     return { foundListings };
+// }
 
 export const useListing = (listingId) => {
     const [listing, setListing] = useState({});
