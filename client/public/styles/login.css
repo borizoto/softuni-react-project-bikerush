@@ -1,0 +1,81 @@
+#login-page {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ECF0F1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #34495E;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+    background-color: #FFF; /* Белият фон за полетата */
+    transition: all 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #2980B9;
+    background-color: #FFF;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background-color: #2980B9;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:disabled {
+    background-color: #BDC3C7;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #3498DB;
+}
+
+p {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+p a {
+    color: #2980B9;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

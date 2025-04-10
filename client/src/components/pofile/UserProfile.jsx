@@ -5,17 +5,17 @@ import { useOwnListings } from "../../api/listingsApi";
 import { useAddedToWatchlist } from "../../api/watchlistApi";
 
 export default function UserProfile() {
-    const { username, email, _id } = useContext(UserContext)
+    const { username, _id } = useContext(UserContext)
     const { ownListings } = useOwnListings(_id);
     const { addedToWatchlist } = useAddedToWatchlist(_id);
-
+    
     return (
         <>
             <section className="profile-hero">
                 <div className="container">
                     <h2>User Profile</h2>
-                    <p>
-                        Welcome back, <span id="username">{username}</span> <strong id="email">{email}</strong>
+                    <p className="profile-welcome">
+                        Welcome back, <span id="username">{username}</span>
                     </p>
                 </div>
             </section>
@@ -27,7 +27,9 @@ export default function UserProfile() {
                         {ownListings?.length > 0 ? (
                             ownListings.map((bike) => <ProfileListingItem key={bike._id} {...bike} />)
                         ) : (
-                            <p className="no-post">You haven't created a bike listing yet.</p>
+                            <div className="no-post-container">
+                                <p className="no-post">You haven't created a bike listing yet.</p>
+                            </div>
                         )}
                     </div>
                 </div>

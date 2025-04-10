@@ -1,0 +1,92 @@
+#create-page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ECF0F1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #34495E;
+}
+
+input[type="number"],
+input[type="text"],
+select,
+textarea {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+    background-color: #FFF;
+    transition: all 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #2980B9;
+    outline: none;
+}
+
+button,
+input[type="submit"] {
+    padding: 12px;
+    background-color: #27AE60; 
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+    background-color: #BDC3C7;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled),
+input[type="submit"]:hover:not(:disabled) {
+    background-color: #2ECC71;  
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.container .btn.submit {
+    width: auto;
+    margin: 0 auto;
+}

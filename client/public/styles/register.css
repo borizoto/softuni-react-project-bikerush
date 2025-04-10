@@ -1,0 +1,87 @@
+#register-page {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ECF0F1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+#register-page h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #28a745;
+    /* ярко зелено за активен фокус */
+}
+
+button[type="submit"] {
+    padding: 12px;
+    background-color: #28a745;
+    /* ярко зелено */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+    /* тъмно зелено при ховър */
+}
+
+p {
+    text-align: center;
+    font-size: 1rem;
+}
+
+a {
+    color: #ff8c00;
+    /* оранжево за линковете */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -4,7 +4,7 @@ export default function ProfileListingItem({
     imageUrl1,
     brand,
     model,
-    listingId
+    _id
 }) {
 
     return (
@@ -12,7 +12,7 @@ export default function ProfileListingItem({
             <img src={imageUrl1} alt="bike" />
             <p><strong>Brand:</strong> {brand}</p>
             <p><strong>Model:</strong> {model}</p>
-            <Link to={`/listings/${listingId}/details`} className="details-btn">
+            <Link to={`/listings/${_id}/details`} className="details-btn">
                 Details
             </Link>
         </div>
