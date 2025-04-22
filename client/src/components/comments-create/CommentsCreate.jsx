@@ -16,7 +16,7 @@ export default function CommentsCreate({
     const createCommentAction = async (formData) => {
         const { comment } = Object.fromEntries(formData);
 
-        if (comment === '') {
+        if (comment.trim() === '') {
             return;
         }
 
